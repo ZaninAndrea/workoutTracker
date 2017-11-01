@@ -1,0 +1,32 @@
+# The following types define the data model of the example app
+# based on which the GraphQL API is generated
+
+type User @model {
+  id: ID! @isUnique
+  firstName: String!
+  lastName: String!
+
+  # You can declare relations between models like this
+  workouts: [Workout!]! @relation(name: "UserWorkouts")
+  schedules: [Schedule!]! @relation(name: "UserSchedules")
+}
+
+type Workout @model {
+  id: ID! @isUnique
+  title: String!
+  description: String!
+  user: User! @relation(name: "UserWorkouts")
+}
+
+type Schedule @model {
+  id: ID! @isUnique
+  title: String!
+  description: String!
+  user: User! @relation(name: "UserSchedules")
+}
+
+type Exercise @model {
+  id: ID! @isUnique
+  title: String!
+  description: String!
+}
