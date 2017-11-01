@@ -5,7 +5,7 @@ import {graphql} from "react-apollo"
 class CreateWorkout extends Component {
     render() {
         return (
-            <div onClick={this._createLink}>
+            <div className="createWorkout" onClick={this._createLink}>
                 create workout
             </div>
         )
