@@ -1,5 +1,8 @@
 {
   "name": "workouttracker",
   "version": "1.0.0",
-  "description": "My Graphcool Service"
+  "description": "workout tracker",
+  "dependencies": {
+    "react-apollo": "^2.0.0"
+  }
 }
