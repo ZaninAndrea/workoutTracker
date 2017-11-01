@@ -3,8 +3,7 @@
 
 type User @model {
   id: ID! @isUnique
-  firstName: String!
-  lastName: String!
+  userName: String! @isUnique
 
   # You can declare relations between models like this
   workouts: [Workout!]! @relation(name: "UserWorkouts")

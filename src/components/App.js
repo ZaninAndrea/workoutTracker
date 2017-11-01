@@ -1,19 +1,40 @@
-import React, { Component } from 'react';
-import '../styles/App.css';
+import React, {Component} from "react"
+import gql from "graphql-tag"
+import {graphql} from "react-apollo"
+import "../styles/App.css"
+import CreateWorkout from './CreateWorkout'
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+    render() {
+        if (this.props.allWorkoutsQuery && this.props.allWorkoutsQuery.loading) {
+            return <div>Loading</div>
+        }
+        if (this.props.allWorkoutsQuery && this.props.allWorkoutsQuery.error) {
+            return <div>Error</div>
+        }
+
+        const workouts = this.props.allWorkoutsQuery.allWorkouts
+
+        return (
+            <div className="App">
+                {workouts.map(workout=><div key={workout.id} className="workout">
+                    <b>{workout.title}</b><br />
+                    {workout.description}<br /><br />
+                </div>)}
+                <CreateWorkout />
+            </div>
+        )
+    }
 }
 
-export default App;
+const ALL_WORKOUTS_QUERY = gql`
+query AllWorkoutsQuery {
+    allWorkouts {
+        id
+        title
+        description
+    }
+}
+`
+
+export default graphql(ALL_WORKOUTS_QUERY, {name: "allWorkoutsQuery"})(App)
